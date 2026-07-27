@@ -4,6 +4,11 @@
 #include <sys/stat.h>
 #include <sys/types.h>
 
+char* getFileType(mode_t mode){
+	if (S_ISREG(mode)) return "Regular File";
+	else if(S_ISDIR(mode)) return "Directory"; 
+	else return "to be considered";
+}
 
 int main (int argc, char *argv[]){
 	struct stat sb; 
@@ -18,15 +23,16 @@ int main (int argc, char *argv[]){
 		exit(EXIT_FAILURE); 
 	}
 
-	printf("%s:\n", argv[1]);
-	printf("\tinode: %lu\n", sb.st_ino); 
-	printf("\tperms: %o\n", sb.st_mode & (S_IRWXU | S_IRWXG | S_IRWXO)); 
-	printf("\tlinks: %ld\n" , sb.st_nlink); 
-	printf("\tsize: %ld\n", sb.st_size); 
-	printf("\tatime: %s", ctime(&sb.st_atim.tv_sec)); 
-	printf("\tmtime: %s", ctime(&sb.st_mtim.tv_sec)); 
-	printf("\tctime: %s", ctime(&sb.st_ctim.tv_sec)); 
-	printf("\n"); 
+	printf("=== File Attributes for: %s ===\n", argv[1]); 
+	printf("%-22s %s\n", "File Type:", getFileType(sb.st_mode));
+	printf("%-22s %04o\n","Permision:",sb.st_mode & 0777); 
+	printf("%-22s %ld\n", "File size:", sb.st_size); 	
+	printf("%-22s %ld\n", "Hard Link Count:" , sb.st_nlink); 
+	printf("%-22s %d\n","Owner (UID):", sb.st_uid);
+	printf("%-22s %d\n","Group (GID):", sb.st_gid);
+	printf("%-22s %s","Last Access Time:", ctime(&sb.st_atim.tv_sec)); 
+	printf("%-22s %s","Last Modification:", ctime(&sb.st_mtim.tv_sec)); 
+	printf("%-22s %s","Status Change Time:", ctime(&sb.st_ctim.tv_sec)); 
 
 	return 0; 
 }
