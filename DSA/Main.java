@@ -4,22 +4,12 @@ public class Main{
 
 
 
-        FibonacciOptimal solver = new FibonacciOptimal(); 
+        CountInversion solver = new CountInversion(); 
 
-        int[] testInputs = {10,50};
-        int[] expectedOutputs = {10,44};
+        int[] testInput = {1,3,2,3,1};
+        int count = solver.CountInversion(testInput);
 
-        System.out.println("--- Running FibonacciOptimal Tests ---");
-        for (int i = 0; i < testInputs.length; i++) {
-            int input = testInputs[i];
-            int expected = expectedOutputs[i];
-            int actual = solver.sumEvenFibonacci(input);
-
-            if (actual == expected) {
-                System.out.println("✓ Test " + i + " Passed! Input: " + input + " -> Output: " + actual);
-            } else {
-                System.out.println("✗ Test " + i + " Failed! Input: " + input + " | Expected: " + expected + " | Got: " + actual);
-            }
-        }
+        
+        System.out.println(count); 
     }
 }
