@@ -1,9 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-        BalancedParenthesis solver = new BalancedParenthesis(); 
+        PostFix solver = new PostFix(); 
 
-        String input = "[()]{}{()()}";
+        String input = "231*+9-";
 
-        System.out.println(solver.BalancedParenthesis(input));
+        System.out.println(solver.PostFix(input));
     }
 }
